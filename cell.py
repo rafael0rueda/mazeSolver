@@ -13,6 +13,8 @@ class Cell:
         self.win = win
     
     def draw(self, x1, y1, x2, y2):
+        if self.win is None:
+            return
         # x1, y1 are top-left and x2, y2 are bottom right
         self._x1 = x1
         self._y1 = y1
@@ -28,16 +30,25 @@ class Cell:
         line4 = Line(p3, p4)
         if self.has_top_wall:
             self.win.draw_line(line1, "red")
+        else:
+            self.win.draw_line(line1, "white")
         if self.has_left_wall:
             self.win.draw_line(line2, "blue")
+        else:
+            self.win.draw_line(line2, "white")
         if self.has_right_wall:
             self.win.draw_line(line3, "green")
+        else:
+            self.win.draw_line(line3, "white")
         if self.has_bottom_wall:
             self.win.draw_line(line4, "black")
+        else:
+            self.win.draw_line(line4, "white")
     
     def draw_move(self, to_cell, undo=False):
         middle_x = (self._x1 + self._x2) / 2
         middle_y = (self._y1 + self._y2) / 2
+        # Find the middle of the other cell
         other_x = (to_cell._x1 + to_cell._x2) / 2
         other_y = (to_cell._y1 + to_cell._y2) / 2
         point_middle1 = Point(middle_x, middle_y)
