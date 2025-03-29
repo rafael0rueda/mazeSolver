@@ -30,15 +30,15 @@ class Cell:
         line3 = Line(p2, p4)
         line4 = Line(p3, p4)
         if self.has_top_wall:
-            self.win.draw_line(line1, "red")
+            self.win.draw_line(line1, "black")
         else:
             self.win.draw_line(line1, "white")
         if self.has_left_wall:
-            self.win.draw_line(line2, "blue")
+            self.win.draw_line(line2, "black")
         else:
             self.win.draw_line(line2, "white")
         if self.has_right_wall:
-            self.win.draw_line(line3, "green")
+            self.win.draw_line(line3, "black")
         else:
             self.win.draw_line(line3, "white")
         if self.has_bottom_wall:

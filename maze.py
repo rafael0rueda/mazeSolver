@@ -104,6 +104,41 @@ class Maze:
         for i in range(self.num_cols):
             for j in range(self.num_rows):
                 self._cells[i][j].visited = False
+    
+    def solve(self):
+        return self._solve_r(0,0)
+
+    def _solve_r(self,i, j):
+        self._animate()
+        self._cells[i][j].visited = True
+        if i == self.num_cols - 1 and j == self.num_rows - 1:
+            return True
+        directions = [
+            (i-1, j, "left"),  # cell to the left
+            (i+1, j, "right"),  # cell to the right
+            (i, j-1, "top"),    # cell above
+            (i, j+1, "bottom")  # cell below
+            ]
+        for new_i, new_j, direction in directions:
+            if (0 <= new_i < self.num_cols and 0 <= new_j < self.num_rows and 
+                not self._cells[new_i][new_j].visited and
+                not self._is_wall_between(i, j, direction)):
+                self._cells[i][j].draw_move(self._cells[new_i][new_j])
+                if self._solve_r(new_i, new_j):
+                    return True
+                self._cells[i][j].draw_move(self._cells[new_i][new_j], True)
+        return False
+    
+    def _is_wall_between(self, i, j, direction):
+        if direction == "left":
+            return self._cells[i][j].has_left_wall
+        elif direction == "right":
+            return self._cells[i][j].has_right_wall
+        elif direction == "top":
+            return self._cells[i][j].has_top_wall
+        elif direction == "bottom":
+            return self._cells[i][j].has_bottom_wall
+            
 
           
 
